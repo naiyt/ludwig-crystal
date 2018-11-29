@@ -5,6 +5,7 @@ require "../src/models/**"
 
 require "../src/controllers/application_controller"
 require "../src/controllers/**"
+require "../src/controllers/api/v1/**"
 
 # About Application.cr File
 #

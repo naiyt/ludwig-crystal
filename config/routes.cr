@@ -12,12 +12,11 @@ Amber::Server.configure do
     plug Amber::Pipe::CSRF.new
   end
 
-  pipeline :api do
+  pipeline :api_v1 do
     plug Amber::Pipe::PoweredByAmber.new
     plug Amber::Pipe::Error.new
     plug Amber::Pipe::Logger.new
     plug Amber::Pipe::Session.new
-    plug Amber::Pipe::CORS.new
   end
 
   # All static content will run these transformations
@@ -28,11 +27,11 @@ Amber::Server.configure do
   end
 
   routes :web do
-    resources "/entries", EntryController
     get "/", HomeController, :index
   end
 
-  routes :api do
+  routes :api_v1, "/api/v1" do
+    resources "/entries", Api::V1::EntryController, only: [:index]
   end
 
   routes :static do
