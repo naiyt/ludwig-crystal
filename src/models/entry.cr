@@ -14,4 +14,17 @@ class Entry < Granite::Base
   field noise : Int32
   field sys_time : Time
   timestamps
+
+  FLAT          = "Flat"
+  FORTYFIVEDOWN = "FortyFiveDown"
+  FORTYFIVEUP   = "FortyFiveUp"
+  SINGLEUP      = "SingleUp"
+  SINGLEDOWN    = "SingleDown"
+  DOUBLEDOWN    = "DoubleDown"
+  NOTCOMPUTABLE = "NOT COMPUTABLE"
+  VALID_DIRECTIONS = { FLAT, FORTYFIVEDOWN, FORTYFIVEDOWN, FORTYFIVEUP, SINGLEUP, SINGLEDOWN, DOUBLEDOWN, NOTCOMPUTABLE }
+
+  validate :direction, "inclusion of" do |entry|
+     VALID_DIRECTIONS.includes? entry.direction
+  end
 end
