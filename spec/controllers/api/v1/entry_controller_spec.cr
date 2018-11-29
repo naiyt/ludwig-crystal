@@ -14,6 +14,24 @@ class Api::V1::EntryControllerTest < GarnetSpec::Controller::Test
   end
 end
 
+def valid_create_attributes
+  {
+    device: "Nexus 5X",
+    date_string: Time.now.to_s,
+    sgv: 110,
+    delta: 12.0,
+    direction: Entry::FORTYFIVEUP,
+    filtered: 100,
+    unfiltered: 100,
+    rssi: 100,
+    noise: 1,
+    sys_time: Time.now.to_s,
+  }
+end
+
+def validate_create_params
+  valid_create_attributes.map { |key, val| "#{key}=#{val}" }.join("&")
+end
 
 describe Api::V1::EntryControllerTest do
   subject = Api::V1::EntryControllerTest.new
@@ -25,6 +43,16 @@ describe Api::V1::EntryControllerTest do
       response.status_code.should eq(200)
       body = JSON.parse(response.body)
       body["thing"].should eq("stuff")
+    end
+  end
+
+  describe "#POST create" do
+    it "creates the entry" do
+      Entry.clear
+      before_count = Entry.count
+      response = subject.post("/api/v1/entries", body: validate_create_params)
+      response.status_code.should eq(200)
+      Entry.count.should eq(before_count + 1)
     end
   end
 end

@@ -31,7 +31,7 @@ Amber::Server.configure do
   end
 
   routes :api_v1, "/api/v1" do
-    resources "/entries", Api::V1::EntryController, only: [:index]
+    resources "/entries", Api::V1::EntryController, only: [:index, :create]
   end
 
   routes :static do

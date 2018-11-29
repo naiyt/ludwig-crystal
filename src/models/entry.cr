@@ -4,7 +4,7 @@ class Entry < Granite::Base
 
   primary id : Int64
   field device : String
-  field date_string : Time
+  field date_string : String
   field sgv : Int32
   field delta : Float64
   field direction : String
@@ -12,7 +12,7 @@ class Entry < Granite::Base
   field unfiltered : Int32
   field rssi : Int32
   field noise : Int32
-  field sys_time : Time
+  field sys_time : String
   timestamps
 
   FLAT          = "Flat"

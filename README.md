@@ -48,3 +48,9 @@ crystal spec
 ## Contributors
 
 - [your-github-user](https://github.com/your-github-user) Nate Collings - creator, maintainer
+
+
+TODO:
+
+- Better validations
+- Figure out why I can't store `date_string` and `sys_time` as timestamps
