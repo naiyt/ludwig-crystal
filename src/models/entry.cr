@@ -6,7 +6,7 @@ class Entry < Granite::Base
   field device : String
   field date_string : Time
   field sgv : Int32
-  field delta : Float32
+  field delta : Float64
   field direction : String
   field filtered : Int32
   field unfiltered : Int32
