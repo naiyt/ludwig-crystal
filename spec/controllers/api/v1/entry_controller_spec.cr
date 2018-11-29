@@ -16,21 +16,27 @@ end
 
 def valid_create_attributes
   {
-    device: "Nexus 5X",
-    date_string: Time.now.to_s,
-    sgv: 110,
-    delta: 12.0,
-    direction: Entry::FORTYFIVEUP,
-    filtered: 100,
-    unfiltered: 100,
-    rssi: 100,
-    noise: 1,
-    sys_time: Time.now.to_s,
+    "device" => "Nexus 5X",
+    "date_string" => Time.now.to_s,
+    "sgv" => 110,
+    "delta" => 12.0,
+    "direction" => Entry::FORTYFIVEUP,
+    "filtered" => 100,
+    "unfiltered" => 100,
+    "rssi" => 100,
+    "noise" => 1,
+    "sys_time" => Time.now.to_s,
   }
 end
 
-def validate_create_params
+def validate_create_params(params=valid_create_attributes)
   valid_create_attributes.map { |key, val| "#{key}=#{val}" }.join("&")
+end
+
+def create_entry
+  entry = Entry.new(valid_create_attributes)
+  entry.save!
+  entry
 end
 
 describe Api::V1::EntryControllerTest do
@@ -46,6 +52,15 @@ describe Api::V1::EntryControllerTest do
     end
   end
 
+  describe "#GET show" do
+    it "returns the specified entry" do
+      entry = create_entry
+      response = subject.get("/api/v1/entries/#{entry.id}")
+      response.status_code.should eq(200)
+      JSON.parse(response.body)["id"].should eq(entry.id)
+    end
+  end
+
   describe "#POST create" do
     it "creates the entry" do
       Entry.clear
@@ -53,6 +68,18 @@ describe Api::V1::EntryControllerTest do
       response = subject.post("/api/v1/entries", body: validate_create_params)
       response.status_code.should eq(200)
       Entry.count.should eq(before_count + 1)
+    end
+  end
+
+  describe "#DELETE destroy" do
+    it "destroys the entry" do
+      Entry.clear
+      entry = create_entry
+      before_count = Entry.count
+      response = subject.delete("/api/v1/entries/#{entry.id}")
+      response.status_code.should eq(200)
+      Entry.count.should eq(before_count - 1)
+      Entry.find(entry.id).should eq(nil)
     end
   end
 end
