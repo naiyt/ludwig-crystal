@@ -17,6 +17,8 @@ class User < Granite::Base
   field! singleton : Bool
   timestamps
 
+  has_many :api_tokens
+
   def password=(password)
     @hashed_password = Bcrypt::Password.create(password, cost: 10).to_s
   end
