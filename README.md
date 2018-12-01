@@ -1,57 +1,11 @@
-# ludwig
+This was an experimental app to try and learn some Crystal and Amber, to see if they're something I would want to start using. I've determined that while they're both interesting and impressive, they're not quite there in terms of productivity and user friendliness. Which is totally understandable, given how young they both are, and the fact that they've been built almost entirely using the free time of their contributors!
 
-[![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
+Main problems:
 
-This is a project written using [Amber](https://amberframework.org). Enjoy!
+* All of the understandable problems you would see with a pre 1.0 language and framework. (Bugs, lack of libraries, less online help and support.)
+* Some slightly odd decisions with Amber (e.g., the controller param validations)
+* The built-in Crystal spec framework leaves something to be desired
+* The compile times on Crystal are awfully slow, which impacts development speed. After reading a bunch of discussion on the topic, it's really unkown whether that will improve in the future, and it doesn't seem like a top priority for the Crystal team.
+* The development tools aren't really there yet. Editor integration is shaky at best, and the debugging experience is not good yet.
 
-## Getting Started
-
-These instructions will get a copy of this project running on your machine for development and testing purposes.
-
-Please see [deployment](https://docs.amberframework.org/amber/deployment) for notes on deploying the project in production.
-
-## Prerequisites
-
-This project requires [Crystal](https://crystal-lang.org/) ([installation guide](https://crystal-lang.org/docs/installation/)).
-
-## Development
-
-To start your Amber server:
-
-1. Install dependencies with `shards install`
-2. Build executables with `shards build`
-3. Create and migrate your database with `bin/amber db create migrate`. Also see [creating the database](https://docs.amberframework.org/amber/guides/create-new-app#creating-the-database).
-4. Start Amber server with `bin/amber watch`
-
-Now you can visit http://localhost:3000/ from your browser.
-
-Getting an error message you need help decoding? Check the [Amber troubleshooting guide](https://docs.amberframework.org/amber/troubleshooting), post a [tagged message on Stack Overflow](https://stackoverflow.com/questions/tagged/amber-framework), or visit [Amber on Gitter](https://gitter.im/amberframework/amber).
-
-Using Docker? Please check [Amber Docker guides](https://docs.amberframework.org/amber/guides/docker).
-
-## Tests
-
-To run the test suite:
-
-```
-crystal spec
-```
-
-## Contributing
-
-1. Fork it ( https://github.com/your-github-user/ludwig/fork )
-2. Create your feature branch ( `git checkout -b my-new-feature` )
-3. Commit your changes ( `git commit -am 'Add some feature'` )
-4. Push to the branch ( `git push origin my-new-feature` )
-5. Create a new Pull Request
-
-## Contributors
-
-- [your-github-user](https://github.com/your-github-user) Nate Collings - creator, maintainer
-
-
-TODO:
-
-- Better validations
-- Figure out why I can't store `date_string` and `sys_time` as timestamps
-- The before blocks in the tests seem to be global. Maybe switch to the minitest port?
+None of which is meant to put down any of the Crystal or Amber contributors, because they've done (and are doing) amazing work. I love the ideas of Crystal, and will probably continue to use it for small scripts and stuff, but for now I know I can be much more effective with other languages and frameworks for web development.
