@@ -6,12 +6,12 @@ class Entry < Granite::Base
   field! device : String
   field! date_string : String
   field! sgv : Int32
-  field! delta : Float64
+  field delta : Float64
   field! direction : String
-  field! filtered : Int32
-  field! unfiltered : Int32
-  field! rssi : Int32
-  field! noise : Int32
+  field filtered : Int32
+  field unfiltered : Int32
+  field rssi : Int32
+  field noise : Int32
   field sys_time : String
   timestamps
 

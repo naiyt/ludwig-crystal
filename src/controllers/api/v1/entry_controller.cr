@@ -19,8 +19,17 @@ module Api
         end
       end
 
+      # Data should be posted in the following format:
+      # {
+      #   _json: {
+      #     // json string with the permitted parameters
+      #   }
+      # }
+      # A bit clumsy, but that's the format that Nightscout expects,
+      # and what xDrip+ uses.
       def create
-        entry = Entry.new(entry_create_params.validate!)
+        parsed_params = JSON.parse(params.raw_params["_json"])
+        entry = Entry.new(strong_params(parsed_params, ALLOWED_CREATE_PARAMS))
         if entry.valid? && entry.save
           respond_with { json entry.to_json }
         else
@@ -39,20 +48,18 @@ module Api
         respond_with { json({ status: "successfully destroyed"}.to_json) }
       end
 
-      private def entry_create_params
-        params.validation do
-          required :device { |param| !param.nil? }
-          required :date_string { |param| !param.nil? }
-          required :sgv { |param| !param.nil? }
-          required :delta { |param| !param.nil? }
-          required :direction { |param| !param.nil? }
-          required :filtered { |param| !param.nil? }
-          required :unfiltered { |param| !param.nil? }
-          required :rssi { |param| !param.nil? }
-          required :noise { |param| !param.nil? }
-          required :sys_time { |param| !param.nil? }
-        end
-      end
+      private ALLOWED_CREATE_PARAMS = {
+        "device" => "device",
+        "dateString" => "date_string",
+        "sgv" => "sgv",
+        "delta" => "delta",
+        "direction" => "direction",
+        "filtered" => "filtered",
+        "unfiltered" => "unfiltered",
+        "rssi" => "rssi",
+        "noise" => "noise",
+        "sysTime" => "sys_time",
+      }
 
       private def set_entry
         @entry = Entry.find!(params[:id])

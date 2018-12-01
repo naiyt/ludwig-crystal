@@ -54,3 +54,4 @@ TODO:
 
 - Better validations
 - Figure out why I can't store `date_string` and `sys_time` as timestamps
+- The before blocks in the tests seem to be global. Maybe switch to the minitest port?

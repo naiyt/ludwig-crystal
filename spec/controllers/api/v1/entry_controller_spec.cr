@@ -25,12 +25,17 @@ def valid_create_attributes
     "unfiltered" => 100,
     "rssi" => 100,
     "noise" => 1,
-    "sys_time" => Time.now.to_s,
+    "sysTime" => Time.now.to_s,
   }
 end
 
 def validate_create_params(params=valid_create_attributes)
-  valid_create_attributes.map { |key, val| "#{key}=#{val}" }.join("&")
+  # TODO: this is annoying, but xDrip+ and Nightscout call the column dateString,
+  # but that gives me issues because Postgres is case insensitive, and then amber
+  # freaks out if the field is called dateString, since the database reports
+  # datestring.
+  params["dateString"] = params["date_string"]
+  "_json=#{params.to_json}"
 end
 
 def create_entry
